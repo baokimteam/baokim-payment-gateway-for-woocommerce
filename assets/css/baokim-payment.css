@@ -1,0 +1,40 @@
+#wc-baokim_payment_gateway-cc-form {
+	padding: 0;
+}
+.wc-bkp-method > div:not(.wc-bkp-clearfix) {
+	display: inline-block;
+	float: left;
+}
+.wc-bkp-clearfix {
+	clear: both;
+}
+.wc-bkp-info > span {
+	display: block;
+}
+.wc-bkp-check-box {
+	width: 30px;
+	height: 30px;
+	background: url(../img/check_pay.jpg) 0 0 no-repeat;
+	position: absolute;
+	top: 10px;
+	right: 10px;
+}
+.wc-bkp-method {
+	padding: 8px 0;
+	position: relative;
+	border-top: 1px dashed;
+	cursor: pointer;
+}
+.wc-bkp-method:last-child {
+	border-bottom: 1px dashed;
+}
+.wc-bkp-method:hover,
+.wc-bkp-method.active {
+	background-color: #d6d6d6;
+}
+.wc-bkp-desc {
+	font-size: 16px;
+}
+.wc-bkp-icon {
+	margin-right: 10px;
+}

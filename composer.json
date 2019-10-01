@@ -1,0 +1,14 @@
+{
+    "name": "baokim/payment-gateway-for-woocommerce",
+    "type": "Wordpress Plugin",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Bao Kim",
+            "email": "support@baokim.vn"
+        }
+    ],
+    "require": {
+		"firebase/php-jwt": "^5.0"
+	}
+}
