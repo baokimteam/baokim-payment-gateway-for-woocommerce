@@ -61,7 +61,7 @@ class WC_BaoKimPayment_API {
 	 */
 	public static function get_api_secret (): string {
 		if ( ! self::$_api_secret ) {
-			$options = get_option( 'woocommerce_baokim_payment_gateway_settings' );
+			$options = WC_BaoKimPayment_Option::get_options();
 
 			if ( isset( $options['testmode'], $options['api_key'] ) ) {
 				self::set_api_secret( 'yes' === $options['testmode'] ? $options['test_api_secret'] : $options['api_secret'] );
@@ -84,7 +84,7 @@ class WC_BaoKimPayment_API {
 	 */
 	public static function get_api_key (): string {
 		if ( ! self::$_api_key ) {
-			$options = get_option( 'woocommerce_baokim_payment_gateway_settings' );
+			$options = WC_BaoKimPayment_Option::get_options();
 
 			if ( self::is_testmode_on() && isset( $options['api_key'] ) ) {
 				self::set_api_key( 'yes' === $options['testmode'] ? $options['test_api_key'] : $options['api_key'] );
@@ -144,72 +144,37 @@ class WC_BaoKimPayment_API {
 	 *
 	 * @param string $method
 	 * @param string $uri
-	 * @param array $options
+	 * @param array $params
+	 * @param string $msg
 	 * @return object
 	 */
-	public function request( $method, $uri ) {
+	public function request( $method, $uri, $params = array(), $msg = '' ) {
 		if ( self::is_testmode_on() ) {
 			$url = self::TEST_ENDPOINT . $uri . '?jwt=' . self::get_jwt();
 		} else {
 			$url = self::ENDPOINT . $uri . '?jwt=' . self::get_jwt();
 		}
 
+		if ( empty( $msg ) ) {
+			$msg = 'There was a problem connecting to the Bao Kim API endpoint.';
+		}
+		
 		$res = wp_safe_remote_post(
 			$url,
 			array(
 				'method'  => $method,
-				//'headers' => self::get_headers(),
 				'timeout' => self::TIMEOUT,
+				'body' => $params
 			)
 		);
-		
+
 		if ( is_wp_error( $res ) || empty( $res['body'] ) || $res['response']['code'] != 200 ) {
-			throw new WC_BaoKimPayment_Exception( print_r( $res, true ), __( 'There was a problem connecting to the Stripe API endpoint.', 'woocommerce-gateway-stripe' ) );
+			WC_BaoKimPayment_Logger::log($res['body']);
+
+			throw new WC_BaoKimPayment_Exception( print_r( $res, true ), __( $msg, 'woocommerce-gateway-baokim-payment' ) );
 		}
 
 		return json_decode( $res['body'] );
-	}
-
-	/**
-	 * Generates the headers to pass to API request.
-	 *
-	 * @since 1.0.0
-	 */
-	public static function get_headers() {
-		$user_agent = self::get_user_agent();
-		$app_info   = $user_agent['application'];
-
-		return apply_filters(
-			'woocommerce_stripe_request_headers',
-			array(
-				'Authorization'              => 'Basic ' . base64_encode( self::get_secret_key() . ':' ),
-				'User-Agent'                 => $app_info['name'] . '/' . $app_info['version'] . ' (' . $app_info['url'] . ')',
-				'X-Stripe-Client-User-Agent' => json_encode( $user_agent ),
-			)
-		);
-	}
-
-	/**
-	 * Generates the user agent we use to pass to API request so
-	 * Stripe can identify our application.
-	 *
-	 * @since 4.0.0
-	 * @version 4.0.0
-	 */
-	public static function get_user_agent() {
-		$app_info = array(
-			'name'    => 'WooCommerce Stripe Gateway',
-			'version' => WC_STRIPE_VERSION,
-			'url'     => 'https://woocommerce.com/products/stripe/',
-		);
-
-		return array(
-			'lang'         => 'php',
-			'lang_version' => phpversion(),
-			'publisher'    => 'woocommerce',
-			'uname'        => php_uname(),
-			'application'  => $app_info,
-		);
 	}
 
 	/**
@@ -218,11 +183,9 @@ class WC_BaoKimPayment_API {
 	 * @return boolean
 	 */
 	public static function is_testmode_on() {
-		$options = get_option( 'woocommerce_baokim_payment_gateway_settings' );
-
-		if ( ! isset( $options['testmode'] ) )
+		if ( empty( WC_BaoKimPayment_Option::get_option( 'testmode' ) ) )
 			return false;
 
-		return 'yes' === $options['testmode'];
+		return 'yes' === WC_BaoKimPayment_Option::get_option( 'testmode' );
 	}
 }

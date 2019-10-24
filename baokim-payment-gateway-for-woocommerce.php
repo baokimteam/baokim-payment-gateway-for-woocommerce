@@ -5,7 +5,6 @@
  * Description: Full integration for Bao Kim Payment gateway for WooCommerce
  * Version: 1.0.0
  * Author: Bao Kim
- * Author URI: https://baokim.vn
  * License: GPL2
  *
  * @version     1.0.0
@@ -71,32 +70,6 @@ function wc_baokim_payment_gateway_init() {
 		public function init_form_fields() {
 			$this->form_fields = require( dirname( __FILE__ ) . '/includes/settings.php' );
 		}
-	
-		/**
-		 * Process the payment and return the result
-		 *
-		 * @param int $order_id
-		 * @return array
-		 */
-		public function process_payment( $order_id ) {
-	
-			$order = wc_get_order( $order_id );
-			
-			// Mark as on-hold (we're awaiting the payment)
-			$order->update_status( 'on-hold', __( 'Awaiting Bao Kim Payment', 'wc-gateway-baokim-payment' ) );
-			
-			// Reduce stock levels
-			$order->reduce_order_stock();
-			
-			// Remove cart
-			WC()->cart->empty_cart();
-			
-			// Return thankyou redirect
-			return array(
-				'result' 	=> 'success',
-				'redirect'	=> $this->get_return_url( $order )
-			);
-		}
 		
 		/**
 		 * Init the plugin after plugins_loaded so environment variables are set.
@@ -105,10 +78,12 @@ function wc_baokim_payment_gateway_init() {
 		 */
 		public function init() {
 			require_once dirname( __FILE__ ) . '/vendor/autoload.php';
+			require_once dirname( __FILE__ ) . '/includes/class-wc-baokim-payment-option.php';
 			require_once dirname( __FILE__ ) . '/includes/class-wc-baokim-payment-exception.php';
-			//require_once dirname( __FILE__ ) . '/includes/class-wc-baokim-payment-logger.php';
+			require_once dirname( __FILE__ ) . '/includes/class-wc-baokim-payment-logger.php';
 			require_once dirname( __FILE__ ) . '/includes/class-wc-baokim-payment-api.php';
 			require_once dirname( __FILE__ ) . '/includes/class-wc-gateway-baokim-payment.php';
+			require_once dirname( __FILE__ ) . '/includes/class-wc-webhook-handler.php';
 
 			add_filter( 'woocommerce_payment_gateways', array( $this, 'add_gateways' ) );
 			add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), array( $this, 'plugin_action_links' ) );
@@ -134,7 +109,7 @@ function wc_baokim_payment_gateway_init() {
 		 */
 		function plugin_action_links( $links ) {
 			$plugin_links = array(
-				'<a href="admin.php?page=wc-settings&tab=checkout&section=baokim-payment-gateway">' . esc_html__( 'Settings', 'wc-gateway-baokim-payment' ) . '</a>',
+				'<a href="admin.php?page=wc-settings&tab=checkout&section=baokim_payment_gateway">' . esc_html__( 'Settings', 'wc-gateway-baokim-payment' ) . '</a>',
 				'<a target="_blank" href="https://developer.baokim.vn/payment/">' . esc_html__( 'Bao Kim API', 'wc-gateway-baokim-payment' ) . '</a>'
 			);
 			return array_merge( $plugin_links, $links );

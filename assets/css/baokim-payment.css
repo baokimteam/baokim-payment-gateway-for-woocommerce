@@ -1,7 +1,7 @@
 #wc-baokim_payment_gateway-cc-form {
 	padding: 0;
 }
-.wc-bkp-method > div:not(.wc-bkp-clearfix) {
+.wc-bkp-method > .wc-bkp-method-header > div:not(.wc-bkp-clearfix) {
 	display: inline-block;
 	float: left;
 }
@@ -19,22 +19,43 @@
 	top: 10px;
 	right: 10px;
 }
+.wc-bkp-check-box.checked {
+	background: url(../img/checked_pay.jpg) 0 0 no-repeat;
+}
 .wc-bkp-method {
 	padding: 8px 0;
 	position: relative;
 	border-top: 1px dashed;
-	cursor: pointer;
 }
 .wc-bkp-method:last-child {
 	border-bottom: 1px dashed;
 }
-.wc-bkp-method:hover,
-.wc-bkp-method.active {
-	background-color: #d6d6d6;
+.wc-bkp-method-header {
+	cursor: pointer;
 }
 .wc-bkp-desc {
 	font-size: 16px;
 }
 .wc-bkp-icon {
 	margin-right: 10px;
+}
+.wc-bkp-bank-item {
+	border: 1px dotted;
+	cursor: pointer;
+}
+.wc-bkp-bank-item:hover,
+.wc-bkp-bank-item.active {
+	background-color: aliceblue;
+}
+.wc-bkp-bank-item.active {
+	border: 1px #c1e2ff solid;
+}
+.wc-bkp-bank-list {
+	width: 100%;
+	display: none;
+	grid-gap: 20px;
+	grid-template-columns: repeat(auto-fit, calc(100% / 5));
+}
+.wc-bkp-bank-list.active {
+	display: grid;
 }

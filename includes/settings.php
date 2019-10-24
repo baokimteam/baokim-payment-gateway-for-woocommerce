@@ -12,6 +12,11 @@ return apply_filters(
 			'type' => 'checkbox',
 			'default' => 'yes',
 		),
+		'api_key_title' => array(
+			'title' => __( 'Setup your API', 'wc-gateway-baokim-payment' ),
+			'type' => 'title',
+			'description' => sprintf( __( '<a href="%1$s" target="_blank">Sign up</a> for a Bao Kim account, and <a href="%2$s" target="_blank">get your API keys</a>. Click here to read more about <a href="%3$s" target="_blank">Test Mode</a>', 'woocommerce-gateway-stripe' ), 'https://vnid.net/register?site=baokim', 'https://www.baokim.vn/api-key/create-api-key', 'https://developer.baokim.vn/payment/#mi-trng-sandboxtest' )
+		),
 		'testmode' => array(
 			'title' => __( 'Test mode', 'wc-gateway-baokim-payment' ),
 			'label' => __( 'Enable Test Mode', 'wc-gateway-baokim-payment' ),
@@ -48,12 +53,42 @@ return apply_filters(
 			'default' => '',
 			'desc_tip' => true,
 		),
-		'webhook_url' => array(
-			'title' => __( 'Webhook url', 'wc-gateway-baokim-payment' ),
-			'type' => 'text',
-			'description' => __( 'URL to received webhook', 'wc-gateway-baokim-payment' ),
-			'default' => '',
-			'desc_tip' => true,
-		)
+		'logging' => array(
+			'title'       => __( 'Logging', 'woocommerce-gateway-baokim-payment' ),
+			'label'       => __( 'Log debug messages', 'woocommerce-gateway-baokim-payment' ),
+			'type'        => 'checkbox',
+			'description' => __( 'Save debug messages to the WooCommerce System Status log.', 'woocommerce-gateway-baokim-payment' ),
+			'default'     => 'no',
+			'desc_tip'    => true,
+		),
+		'method_setup' => array(
+			'title' => __( 'Setup your payment method', 'woocommerce-gateway-baokim-payment' ),
+			'type' => 'title',
+			'description' => __( 'Setup your payment method, eg: accept ATM, VISA...', 'woocommerce-gateway-baokim-payment' )
+		),
+		'accept_bank' => array(
+			'title' => __( 'Accept/Reject', 'woocommerce-gateway-baokim-payment' ),
+			'type' => 'checkbox',
+			'label' => __( 'ATM card', 'woocommerce-gateway-baokim-payment' ),
+			'description' => __( 'Accept payment by ATM card.', 'woocommerce-gateway-baokim-payment' ),
+			'default'     => 'no',
+			'desc_tip'    => true,
+		),
+		'accept_cc' => array(
+			'title' => __( 'Accept/Reject', 'woocommerce-gateway-baokim-payment' ),
+			'type' => 'checkbox',
+			'label' => __( 'Credit Card', 'woocommerce-gateway-baokim-payment' ),
+			'description' => __( 'Accept payment by Credit Card.', 'woocommerce-gateway-baokim-payment' ),
+			'default'     => 'no',
+			'desc_tip'    => true,
+		),
+		'accept_qrpay' => array(
+			'title' => __( 'Accept/Reject', 'woocommerce-gateway-baokim-payment' ),
+			'type' => 'checkbox',
+			'label' => __( 'QR Code', 'woocommerce-gateway-baokim-payment' ),
+			'description' => __( 'Accept payment by QR Code.', 'woocommerce-gateway-baokim-payment' ),
+			'default'     => 'no',
+			'desc_tip'    => true,
+		),
 	)
 );
