@@ -4,18 +4,18 @@
  * Plugin URI: https://baokim.vn
  * Description: Full integration for Bao Kim Payment gateway for WooCommerce
  * Version: 1.0.0
- * Author: Bao Kim
- * License: GPL2
+ * Author: Bao Kim Team
+ * License: GPLv3
  *
  * @version     1.0.0
  * @package     WooCommerce/Classes/Payment
- * @author      Bao Kim
+ * @author      Bao Kim Team
  */
 
 defined( 'ABSPATH' ) or exit;
 // Make sure WooCommerce is active
 if ( ! in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) ) {
-	echo '<div class="error"><p><strong>' . sprintf( esc_html__( 'Bao Kim Payment requires WooCommerce to be installed and active. You can download %s here. ', 'wc-gateway-baokim-payment' ), '<a href="https://woocommerce.com/" target="_blank">WooCommerce</a>' ) . sprintf( esc_html__( 'Click %s to active WooCommerce if you already have it installed', 'wc-gateway-baokim-payment' ), '<a href="http://dev.wordpress/wp-admin/plugins.php?action=activate&plugin=woocommerce%2Fwoocommerce.php&plugin_status=all&paged=1&s&_wpnonce=b49dbf6a59">here</a>' ) . '</strong></p></div>';
+	echo '<div class="error"><p><strong>' . sprintf( esc_html__( 'Bao Kim Payment requires WooCommerce to be installed and active. You can download %s here. ', 'wc-gateway-baokim-payment' ), '<a href="https://woocommerce.com/" target="_blank">WooCommerce</a>' ) . sprintf( esc_html__( 'Click %s to active WooCommerce if you already have it installed', 'wc-gateway-baokim-payment' ), '<a href="/wp-admin/plugins.php?action=activate&plugin=woocommerce%2Fwoocommerce.php&plugin_status=all&paged=1&s&_wpnonce=b49dbf6a59">here</a>' ) . '</strong></p></div>';
 	
 	require_once( ABSPATH . 'wp-admin/includes/plugin.php' );
 	deactivate_plugins( plugin_basename( __FILE__ ) );
