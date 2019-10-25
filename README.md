@@ -1,5 +1,5 @@
 ## Bao Kim Payment gateway for Woocommerce
-Contributors: bao kim team
+Contributors: Bao Kim Team
 
 Tags: woocommerce, payment, baokim, credit card, atm
 
@@ -9,7 +9,7 @@ Tested up to: 7.3
 
 Requires PHP: 5.6
 
-Stable tag: 1.0
+Stable tag: 1.0.0
 
 License: GPLv3
 
