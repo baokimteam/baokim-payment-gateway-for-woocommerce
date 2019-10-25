@@ -35,7 +35,7 @@ In the search field type “Bao Kim Payment gateway for WooCommerce” and click
 
 ### Manual installation
 
-1. Download the plugin files to the `/wp-content/plugins/plugin-name` directory from [here](https://github.com/anhnt9996/baokim-payment/archive/master.zip).
+1. Download the plugin files to the `/wp-content/plugins/plugin-name` directory from [here](https://cdn.baokim.vn/public/uploads/integration_plugins/baokim-payment-gateway-for-woocommerce.zip).
 2. Activate the plugin through the 'Plugins' screen in WordPress
 3. Use the Settings->Plugin Name screen to configure the plugin
 
