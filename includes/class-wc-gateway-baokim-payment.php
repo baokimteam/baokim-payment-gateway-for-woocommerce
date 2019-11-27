@@ -75,7 +75,6 @@ class WC_Gateway_BaoKimPayment extends WC_Payment_Gateway {
 	/**
 	 * Load admin scripts.
 	 *
-	 * @since 1.0.0
 	 */
 	public function admin_scripts() {
 		wp_enqueue_script( 'wc_baokim_payment', plugins_url( 'assets/js/baokim-payment.js', WC_BAOKIM_MAIN_FILE ) );
@@ -84,7 +83,6 @@ class WC_Gateway_BaoKimPayment extends WC_Payment_Gateway {
 	/**
 	 * Load scripts.
 	 *
-	 * @since 1.0.0
 	 */
 	public function payment_scripts() {
 		wp_register_style( 'wc_baokim_payment_styles', plugins_url( 'assets/css/baokim-payment.css', WC_BAOKIM_MAIN_FILE ) );
@@ -110,7 +108,6 @@ class WC_Gateway_BaoKimPayment extends WC_Payment_Gateway {
 	 *
 	 * @param array $methods
 	 * 
-	 * @since 1.0.0
 	 */
 	public function elements_form( $methods ) {
 		?>

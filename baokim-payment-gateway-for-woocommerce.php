@@ -3,11 +3,11 @@
  * Plugin Name: Bao Kim Payment gateway for WooCommerce
  * Plugin URI: https://baokim.vn
  * Description: Full integration for Bao Kim Payment gateway for WooCommerce
- * Version: 1.0.0
+ * Version: 1.0.1
  * Author: Bao Kim Team
  * License: GPLv3
  *
- * @version     1.0.0
+ * @version     1.0.1
  * @package     WooCommerce/Classes/Payment
  * @author      Bao Kim Team
  */
@@ -29,9 +29,7 @@ if ( ! in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins',
  * Provides an Bao Kim Payment Gateway; mainly for testing purposes.
  * We load it later to ensure WC is loaded first since we're extending it.
  *
- * @version		1.0.0
  * @package		WooCommerce/Classes/Payment
- * @author 		SkyVerge
  */
 add_action( 'plugins_loaded', 'wc_baokim_payment_gateway_init', 11 );
 
@@ -74,7 +72,6 @@ function wc_baokim_payment_gateway_init() {
 		/**
 		 * Init the plugin after plugins_loaded so environment variables are set.
 		 *
-		 * @since 1.0.0
 		 */
 		public function init() {
 			require_once dirname( __FILE__ ) . '/vendor/autoload.php';
@@ -92,7 +89,6 @@ function wc_baokim_payment_gateway_init() {
 		/**
 		 * Add the gateways to WooCommerce.
 		 *
-		 * @since 1.0.0
 		 */
 		public function add_gateways( $methods ) {
 			$methods[] = 'WC_Gateway_BaoKimPayment';
@@ -103,7 +99,6 @@ function wc_baokim_payment_gateway_init() {
 		/**
 		 * Adds plugin page links
 		 * 
-		 * @since 1.0.0
 		 * @param array $links all plugin links
 		 * @return array $links all plugin links + our custom links (i.e., "Settings")
 		 */

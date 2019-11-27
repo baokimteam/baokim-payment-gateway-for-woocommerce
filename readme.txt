@@ -58,8 +58,8 @@ Yes, it does - production and sandbox mode is driven by the API keys you use. Re
 
 == Changelog ==
 
-= 1.0 =
-* First version of Bao Kim Payment for WooCommerce
 = 1.0.1 =
 * Update customer phone and address.
 * Refactor code
+= 1.0 =
+* First version of Bao Kim Payment for WooCommerce
