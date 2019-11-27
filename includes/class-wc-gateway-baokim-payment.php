@@ -217,6 +217,13 @@ class WC_Gateway_BaoKimPayment extends WC_Payment_Gateway {
 	 * @return array
 	 */
 	public function call_bkp_order_api( $order, $order_id, $note ) {
+		if ( !empty( $order->get_billing_address_1() ) ) {
+			$customerAdd = $order->get_billing_address_1();
+		} else if ( !empty( $order->get_billing_address_2() ) ) {
+			$customerAdd = $order->get_billing_address_2();
+		} else {
+			$customerAdd = '';
+		}
 		$params = array(
 			'mrc_order_id' => $this->generate_mrc_order_id( $order_id ),
 			'total_amount' => ( int ) $order->get_total(),
@@ -230,6 +237,7 @@ class WC_Gateway_BaoKimPayment extends WC_Payment_Gateway {
 			'customer_email' => $order->get_billing_email(),
 			'customer_phone' => $order->get_billing_phone(),
 			'customer_name' => $order->get_billing_first_name() . ' '. $order->get_billing_last_name(),
+			'customer_address' => $customerAdd
 		);
 		
 		$res = WC_BaoKimPayment_API::request( 'POST', '/payment/api/v4/order/send', $params, 'Sorry, we are unable to process your payment at this time. Please retry later.' );
