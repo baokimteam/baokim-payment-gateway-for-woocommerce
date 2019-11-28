@@ -1,3 +1,11 @@
+<p align="center"><img src="https://user-images.githubusercontent.com/56957895/69772424-7dcaed00-11c2-11ea-832a-b89627c2fb2c.png" width="400"></p>
+
+<p align="center">
+<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/d/total.svg" alt="Total Downloads"></a>
+<a href="#"><img src="https://poser.pugx.org/laravel/framework/v/stable.svg" alt="Latest Stable Version"></a>
+<a href="#"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
+</p>
+
 ## Bao Kim Payment gateway for Woocommerce
 Contributors: Bao Kim Team
 
