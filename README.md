@@ -1,3 +1,5 @@
+<p align="center"><img src="https://user-images.githubusercontent.com/56957895/69772424-7dcaed00-11c2-11ea-832a-b89627c2fb2c.png" width="250"></p>
+
 ## Bao Kim Payment gateway for Woocommerce
 Contributors: Bao Kim Team
 
