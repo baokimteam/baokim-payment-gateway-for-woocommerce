@@ -3,11 +3,11 @@
  * Plugin Name: Bao Kim Payment gateway for WooCommerce
  * Plugin URI: https://baokim.vn
  * Description: Full integration for Bao Kim Payment gateway for WooCommerce
- * Version: 1.0.1
+ * Version: 1.0.2
  * Author: Bao Kim Team
  * License: GPLv3
  *
- * @version     1.0.1
+ * @version     1.0.2
  * @package     WooCommerce/Classes/Payment
  * @author      Bao Kim Team
  */

@@ -214,12 +214,18 @@ class WC_Gateway_BaoKimPayment extends WC_Payment_Gateway {
 	 * @return array
 	 */
 	public function call_bkp_order_api( $order, $order_id, $note ) {
-		if ( !empty( $order->get_billing_address_1() ) ) {
+		if ( ! empty( $order->get_billing_address_1() ) ) {
 			$customerAdd = $order->get_billing_address_1();
-		} else if ( !empty( $order->get_billing_address_2() ) ) {
+		} else if ( ! empty( $order->get_billing_address_2() ) ) {
 			$customerAdd = $order->get_billing_address_2();
 		} else {
 			$customerAdd = '';
+		}
+		if ( ! empty( $order->get_billing_city() ) ) {
+			$customerAdd .= ', ' . $order->get_billing_city();
+		}
+		if ( ! empty( $order->get_billing_country() ) ) {
+			$customerAdd .= ', ' . $order->get_billing_country();
 		}
 		$params = array(
 			'mrc_order_id' => $this->generate_mrc_order_id( $order_id ),
