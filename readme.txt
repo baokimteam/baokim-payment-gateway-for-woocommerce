@@ -4,7 +4,7 @@ Tags: woocommerce, payment, baokim, credit card, atm
 Requires at least: 4.4
 Tested up to: 7.3
 Requires PHP: 5.6
-Stable tag: 1.0.2
+Stable tag: 1.0.3
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -38,7 +38,7 @@ In the search field type “Bao Kim Payment gateway for WooCommerce” and click
 
 = Manual installation =
 
-1. Download the plugin files from [here](https://github.com/baokimteam/baokim-payment-gateway-for-woocommerce/releases/download/1.0.2/baokim-payment-gateway-for-woocommerce.zip) and extract to the `/wp-content/plugins/` directory.
+1. Download the plugin files from [here](https://github.com/baokimteam/baokim-payment-gateway-for-woocommerce/releases/download/1.0.3/baokim-payment-gateway-for-woocommerce.zip) and extract to the `/wp-content/plugins/` directory.
 2. Activate the plugin through the 'Plugins' screen in WordPress
 3. Use the Settings->Plugin Name screen to configure the plugin
 
@@ -57,7 +57,8 @@ Yes, it does - production and sandbox mode is driven by the API keys you use. Re
 4. Checking out with a saved card.
 
 == Changelog ==
-
+= 1.0.3 =
+* Update mrc_order_id format.
 = 1.0.2 =
 * Small fix
 * Add city and country to customer address

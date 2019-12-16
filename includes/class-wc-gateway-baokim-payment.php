@@ -267,6 +267,8 @@ class WC_Gateway_BaoKimPayment extends WC_Payment_Gateway {
 	 * @return string
 	 */
 	public function generate_mrc_order_id( $order_id ) {
-		return 'wp_' . get_current_user_id() . time() . '_' . $order_id;
+		$domain = preg_replace('/http|https|www|.\/\//', '', get_site_url());
+		$mrc_order_id = $domain . '_' . get_current_user_id() . time() . '_' . $order_id;
+		return md5($mrc_order_id);
 	}
 }
