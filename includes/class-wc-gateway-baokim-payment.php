@@ -29,6 +29,7 @@ class WC_Gateway_BaoKimPayment extends WC_Payment_Gateway {
 	 * @var string;
 	 */
 	public $api_secret;
+	public $merchant_id;
 
 	public function __construct() {
 		$this->id                 = 'baokim_payment_gateway';
@@ -43,6 +44,7 @@ class WC_Gateway_BaoKimPayment extends WC_Payment_Gateway {
 
 		$this->testmode             = 'yes' === $this->get_option( 'testmode' );
 		$this->api_secret           = $this->testmode ? $this->get_option( 'test_api_secret' ) : $this->get_option( 'api_secret' );
+		$this->merchant_id           = $this->testmode ? $this->get_option( 'test_merchant_id' ) : $this->get_option( 'merchant_id' );
 		$this->api_key           = $this->testmode ? $this->get_option( 'test_api_key' ) : $this->get_option( 'api_key' );
 
 		// Set API key and secret
@@ -107,7 +109,7 @@ class WC_Gateway_BaoKimPayment extends WC_Payment_Gateway {
 	 * Renders the Bao Kim Payment elements form.
 	 *
 	 * @param array $methods
-	 * 
+	 *
 	 */
 	public function elements_form( $methods ) {
 		?>
@@ -214,25 +216,25 @@ class WC_Gateway_BaoKimPayment extends WC_Payment_Gateway {
 	 * @return array
 	 */
 	public function call_bkp_order_api( $order, $order_id, $note ) {
-		if ( ! empty( $order->get_billing_address_1() ) ) {
-			$customerAdd = $order->get_billing_address_1();
-		} else if ( ! empty( $order->get_billing_address_2() ) ) {
-			$customerAdd = $order->get_billing_address_2();
-		} else {
-			$customerAdd = '';
-		}
-		if ( ! empty( $order->get_billing_city() ) ) {
-			$customerAdd .= ', ' . $order->get_billing_city();
-		}
-		if ( ! empty( $order->get_billing_country() ) ) {
-			$customerAdd .= ', ' . $order->get_billing_country();
-		}
+        if ( ! empty( $order->get_billing_address_1() ) ) {
+            $customerAdd = $order->get_billing_address_1();
+        } else if ( ! empty( $order->get_billing_address_2() ) ) {
+            $customerAdd = $order->get_billing_address_2();
+        } else {
+            $customerAdd = '';
+        }
+        if ( ! empty( $order->get_billing_city() ) ) {
+            $customerAdd .= ', ' . $order->get_billing_city();
+        }
+        if ( ! empty( $order->get_billing_country() ) ) {
+            $customerAdd .= ', ' . $order->get_billing_country();
+        }
 		$params = array(
 			'mrc_order_id' => $this->generate_mrc_order_id( $order_id ),
 			'total_amount' => ( int ) $order->get_total(),
 			'description' => $note,
 			'url_success' => get_site_url() . '/checkout/order-received/' . $order_id . '/?key=' . $order->get_order_key(),
-			'bpm_id' => ( int ) $_POST['wc_bpm_id'] ?? 0,
+			'bpm_id' => array_key_exists('wc_bpm_id', $_POST) ? ( int ) $_POST['wc_bpm_id'] : 0,
 			'webhooks' => get_site_url() . '/wc-api/wc_baokim_payment',
 			'accept_bank' => WC_BaoKimPayment_Option::get_checkbox_option( 'accept_bank', 1 ),
 			'accept_cc' => WC_BaoKimPayment_Option::get_checkbox_option( 'accept_cc', 1 ),
@@ -240,7 +242,8 @@ class WC_Gateway_BaoKimPayment extends WC_Payment_Gateway {
 			'customer_email' => $order->get_billing_email(),
 			'customer_phone' => $order->get_billing_phone(),
 			'customer_name' => $order->get_billing_first_name() . ' '. $order->get_billing_last_name(),
-			'customer_address' => $customerAdd
+			'customer_address' => $customerAdd,
+            'merchant_id' => $this->merchant_id,
 		);
 		
 		$res = WC_BaoKimPayment_API::request( 'POST', '/payment/api/v4/order/send', $params, 'Sorry, we are unable to process your payment at this time. Please retry later.' );
@@ -267,8 +270,6 @@ class WC_Gateway_BaoKimPayment extends WC_Payment_Gateway {
 	 * @return string
 	 */
 	public function generate_mrc_order_id( $order_id ) {
-		$domain = preg_replace('/http|https|www|.\/\//', '', get_site_url());
-		$mrc_order_id = $domain . '_' . get_current_user_id() . time() . '_' . $order_id;
-		return md5($mrc_order_id);
+		return 'wp_' . get_current_user_id() . time() . '_' . $order_id;
 	}
 }

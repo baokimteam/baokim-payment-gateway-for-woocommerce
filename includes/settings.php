@@ -15,7 +15,7 @@ return apply_filters(
 		'api_key_title' => array(
 			'title' => __( 'Setup your API', 'wc-gateway-baokim-payment' ),
 			'type' => 'title',
-			'description' => sprintf( __( '<a href="%1$s" target="_blank">Sign up</a> for a Bao Kim account, and <a href="%2$s" target="_blank">get your API keys</a>. Click here to read more about <a href="%3$s" target="_blank">Test Mode</a>', 'woocommerce-gateway-stripe' ), 'https://vnid.net/register?site=baokim', 'https://www.baokim.vn/api-key/create-api-key', 'https://developer.baokim.vn/payment/#mi-trng-sandboxtest' )
+			'description' => sprintf( __( '<a href="%1$s" target="_blank">Sign up</a> for a Bao Kim account, and <a href="%2$s" target="_blank">get your API keys</a>. Click here to read more about <a href="%3$s" target="_blank">Test Mode</a>. Then go to <a href="%4$s" target="_blank">Verify Your Website</a> to get Merchant Id', 'woocommerce-gateway-stripe' ), 'https://vnid.net/register?site=baokim', 'https://www.baokim.vn/api-key/create-api-key', 'https://developer.baokim.vn/payment/#mi-trng-sandboxtest', 'https://www.baokim.vn/verify-website' )
 		),
 		'testmode' => array(
 			'title' => __( 'Test mode', 'wc-gateway-baokim-payment' ),
@@ -39,6 +39,13 @@ return apply_filters(
 			'default' => '',
 			'desc_tip' => true,
 		),
+        'merchant_id' => array(
+            'title' => __( 'Merchant Id', 'wc-gateway-baokim-payment' ),
+            'type' => 'number',
+            'description' => __( 'Get from https://www.baokim.vn/verify-website', 'wc-gateway-baokim-payment' ),
+            'default' => '',
+            'desc_tip' => true,
+        ),
 		'test_api_key' => array(
 			'title' => __( 'Test API key', 'wc-gateway-baokim-payment' ),
 			'type' => 'text',
@@ -53,6 +60,13 @@ return apply_filters(
 			'default' => '',
 			'desc_tip' => true,
 		),
+        'test_merchant_id' => array(
+            'title' => __( 'Test Merchant Id', 'wc-gateway-baokim-payment' ),
+            'type' => 'number',
+            'description' => __( 'Get from https://www.baokim.vn/verify-website', 'wc-gateway-baokim-payment' ),
+            'default' => '',
+            'desc_tip' => true,
+        ),
 		'logging' => array(
 			'title'       => __( 'Logging', 'woocommerce-gateway-baokim-payment' ),
 			'label'       => __( 'Log debug messages', 'woocommerce-gateway-baokim-payment' ),
